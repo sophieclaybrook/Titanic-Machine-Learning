@@ -87,6 +87,22 @@ These patterns are consistent with the historical circumstances surrounding the 
 
 The final untuned Random Forest model was submitted to Kaggle and achieved a submission score of **0.74**.
 
+##XGBoost
+I also tested a gradient-boosted model (XGBoost) for comparison, though it didn't outperform Random Forest on this particular dataset — likely due to the dataset's small size, which limits the advantage boosting typically provides. The following code does this, included as not shown in the kaggle file.
+!pip install xgboost --quiet
+from xgboost import XGBClassifier
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000),
+    'Decision Tree': DecisionTreeClassifier(random_state=42),
+    'Random Forest': RandomForestClassifier(random_state=42),
+    'XGBoost': XGBClassifier(random_state=42, eval_metric='logloss')
+}
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    predictions = model.predict(X_test)
+    accuracy = accuracy_score(y_test, predictions)
+    print(f"{name}: {accuracy:.4f}")
+
 ## Skills Demonstrated
 
 - Python
